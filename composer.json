@@ -1,0 +1,15 @@
+{
+    "name": "blytd/media-manager",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Blytd\\MediaManager\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "ali.sarmadi"
+        }
+    ],
+    "require": {}
+}
