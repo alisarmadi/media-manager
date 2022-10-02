@@ -20,15 +20,15 @@ class MediaService {
     {
         $now = Carbon::now();
         $folderName = $now->year . "-" . $now->month;
-        $imageName = (string)Uuid::uuid4();
-        $imageExtension = $data['image']->getClientOriginalExtension();
+        $mediaName = (string)Uuid::uuid4();
+        $mediaExtension = $data['media']->getClientOriginalExtension();
 
-        $baseFilePath = $folderName . '/' . $imageName . '.' . $imageExtension;
+        $baseFilePath = $folderName . '/' . $mediaName . '.' . $mediaExtension;
 
         $originalFilePath = Storage::disk('minio')->putFileAs(
             'original/' . $folderName,
-            $data['image'],
-            $imageName . '.' . $imageExtension,
+            $data['media'],
+            $mediaName . '.' . $mediaExtension,
             'public'
         );
 
@@ -38,8 +38,8 @@ class MediaService {
         ];
 
         $fileAttributes = [
-            'origin_name' => $data['image']->getClientOriginalName(),
-            'mime' => $data['image']->getMimeType(),
+            'origin_name' => $data['media']->getClientOriginalName(),
+            'mime' => $data['media']->getMimeType(),
             'bucket' => $this->bucket,
             'types' => ['original'],
             'path' => $baseFilePath,
