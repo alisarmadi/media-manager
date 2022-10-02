@@ -2,9 +2,9 @@
 
 namespace Blytd\MediaManager\Http\Controller;
 
-use App\Service\FileManager\ImageService;
 use Blytd\MediaManager\Http\Request\MediaDeleteRequest;
 use Blytd\MediaManager\Http\Request\MediaUploadRequest;
+use Blytd\MediaManager\Service\MediaService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -16,11 +16,12 @@ class MediaController
 
     public function upload(
         MediaUploadRequest $request,
-        ImageService $imageService
+        MediaService $mediaService
     )
     {
         $data = $request->all();
-        list($linkData, $file) = $imageService->upload($data);
+        dd('ssssssssssssss');
+        list($linkData, $file) = $mediaService->upload($data);
 
         return response()->json([
             'status' => 'success',
@@ -31,12 +32,12 @@ class MediaController
 
     public function delete(
         MediaDeleteRequest $request,
-        ImageService $imageService,
+        MediaService $mediaService,
         $fileId = null
     )
     {
         $data = $request->all();
-        $imageService->delete($data);
+        $mediaService->delete($data);
         return response()->json([
             'status' => 'success',
             'message' => __('messages.success.image.delete'),

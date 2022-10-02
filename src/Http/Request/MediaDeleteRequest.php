@@ -2,7 +2,6 @@
 
 namespace Blytd\MediaManager\Http\Request;
 
-use App\Models\File;
 use Illuminate\Foundation\Http\FormRequest;
 
 class MediaDeleteRequest extends FormRequest
