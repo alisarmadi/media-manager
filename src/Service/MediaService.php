@@ -54,13 +54,13 @@ class MediaService {
 
     public function delete($data)
     {
-        if (!empty($data['file_id'])) {
-            $file = $this->mediaRepository->findById($data['file_id']);
+        if (!empty($data['media_id'])) {
+            $file = $this->mediaRepository->findById($data['media_id']);
             foreach($file->types as $type) {
                 if (Storage::disk('minio')->exists($type . '/' . $file['path'])) {
                     Storage::disk('minio')->delete($type . '/' . $file['path']);
                 }
-                $this->mediaRepository->delete($data['file_id']);
+                $this->mediaRepository->delete($data['media_id']);
             }
         } else {
             if (Storage::disk('minio')->exists($data['path'])) {

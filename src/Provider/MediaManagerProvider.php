@@ -26,6 +26,9 @@ class MediaManagerProvider extends ServiceProvider
     public function boot()
     {
         $this->app->singleton(MediaRepositoryInterface::class, MediaRepository::class);
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+
+        $this->publishes([
+            __DIR__.'../Http/Controller/MediaController.php' => app_path('Http/Controllers/MediaController.php'),
+        ], 'blytd-media-controller');
     }
 }

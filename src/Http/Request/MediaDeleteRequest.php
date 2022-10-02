@@ -10,7 +10,7 @@ class MediaDeleteRequest extends FormRequest
     {
 
         return [
-            'file_id' => 'required_without:path|exists:files,_id,deleted_at,NULL',
+            'media_id' => 'required_without:path|exists:media,_id,deleted_at,NULL',
             'path' => 'required_without:file_id|string'
         ];
     }
@@ -23,8 +23,8 @@ class MediaDeleteRequest extends FormRequest
     protected function getValidatorInstance()
     {
         $data = $this->all();
-        if ($this->route('file_id')) {
-            $data['file_id'] = $this->route('file_id');
+        if ($this->route('media_id')) {
+            $data['media_id'] = $this->route('media_id');
             $this->getInputSource()->replace($data);
         }
         return parent::getValidatorInstance();

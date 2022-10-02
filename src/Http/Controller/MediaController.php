@@ -20,7 +20,6 @@ class MediaController
     )
     {
         $data = $request->all();
-        dd('ssssssssssssss');
         list($linkData, $file) = $mediaService->upload($data);
 
         return response()->json([
@@ -33,7 +32,7 @@ class MediaController
     public function delete(
         MediaDeleteRequest $request,
         MediaService $mediaService,
-        $fileId = null
+        $mediaId = null
     )
     {
         $data = $request->all();
