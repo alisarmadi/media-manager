@@ -66,7 +66,7 @@ For use the library you have two endpoints for upload and delete, you can access
 
 ```
 ```
-    DELETE {{base_path}}{/api}/media/delete/media_id?6333c3737514b01e0b7f5e11
+    DELETE {{base_path}}{/api}/media/delete/{media_id}
     PAYLOAD
         {
             "path": "original/2022-9/37da58f9-2236-440b-8c3f-7f96fad39477.jpeg"
