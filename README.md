@@ -7,7 +7,7 @@ simple APIs to work with.
 For install this library do these steps:
 - Add this line to require section of the composer.json
 ```
-"blytd/media-manager": "master"
+"blytd/media-manager": "^1.0.0"
 ```
 - And also add this section in the composer.json file:
 ```
@@ -29,7 +29,7 @@ For install this library do these steps:
     ],
     "require": {
         ...
-        "blytd/media-manager": "master"
+        "blytd/media-manager": "^1.0.0"
     },
     ...
 ```
