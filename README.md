@@ -43,7 +43,7 @@ For use the library you have to add this routes to your project routes:
 ```php
 Route::name('media.')->prefix('media')->group(function (){
    Route::post('/upload',[\Blytd\MediaManager\Http\Controller\MediaController::class, 'upload'])->name('upload');
-        Route::delete('/delete/{file_id?}',[\Blytd\MediaManager\Http\Controller\MediaController::class, 'delete'])->name('delete');
+        Route::delete('/delete/{media_id?}',[\Blytd\MediaManager\Http\Controller\MediaController::class, 'delete'])->name('delete');
 });
 ```
 #### Note: Please be careful to wrap these routes in the appropriate middleware to control access to them. Something like this:
@@ -51,7 +51,7 @@ Route::name('media.')->prefix('media')->group(function (){
 Route::middleware('auth')->group(function (){
     Route::name('media.')->prefix('media')->group(function (){
    Route::post('/upload',[\Blytd\MediaManager\Http\Controller\MediaController::class, 'upload'])->name('upload');
-        Route::delete('/delete/{file_id?}',[\Blytd\MediaManager\Http\Controller\MediaController::class, 'delete'])->name('delete');
+        Route::delete('/delete/{media_id?}',[\Blytd\MediaManager\Http\Controller\MediaController::class, 'delete'])->name('delete');
     });
 });
 ```
@@ -61,12 +61,12 @@ For use the library you have two endpoints for upload and delete, you can access
     POST {{base_path}}{/api}/media/upload
     PAYLOAD (form-data)
         media: (Selected file)
-        model: (Can be one of your model name, it's optional parameter)
-        model_id: (Id of the selected model, it's optional parameter)
+        model: (Can be one of your model name, it's an optional parameter)
+        model_id: (Id of the selected model, it's an optional parameter)
 
 ```
 ```
-    DELETE {{base_path}}{/api}/media/delete/media_id?
+    DELETE {{base_path}}{/api}/media/delete/media_id?6333c3737514b01e0b7f5e11
     PAYLOAD
         {
             "path": "original/2022-9/37da58f9-2236-440b-8c3f-7f96fad39477.jpeg"

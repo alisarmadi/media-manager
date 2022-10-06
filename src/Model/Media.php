@@ -9,11 +9,6 @@ class Media extends Model
 {
     use SoftDeletes;
 
-    const ACCEPTABLE_MODELS = [
-        'User',
-        'Preamble'
-    ];
-
     protected $dates = [
         'deleted_at'
     ];

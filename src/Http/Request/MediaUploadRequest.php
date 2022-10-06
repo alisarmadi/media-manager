@@ -11,7 +11,7 @@ class MediaUploadRequest extends FormRequest
     {
         return [
             'media' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'model' => 'string|in:' . implode(',', Media::ACCEPTABLE_MODELS),
+            'model' => 'string',
             'model_id' => 'string',
             'extra_data' => 'array'
         ];
