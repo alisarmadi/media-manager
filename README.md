@@ -63,6 +63,8 @@ For use the library you have two endpoints for upload and delete, you can access
         media: (Selected file)
         model: (Can be one of your model name, it's an optional parameter)
         model_id: (Id of the selected model, it's an optional parameter)
+        type: (Type of the file, can be one of (IMAGE,VIDEO,DOC,OTHER) it's an optional parameter)
+        extra_data: (Extra data you want to store beside the file, It must be an array. It's an optional parameter)
 
 ```
 ```

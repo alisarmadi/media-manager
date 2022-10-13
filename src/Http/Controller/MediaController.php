@@ -20,6 +20,7 @@ class MediaController
     )
     {
         $data = $request->all();
+        $data['type'] = $data['type'] ?? 'IMAGE';
         list($linkData, $file) = $mediaService->upload($data);
 
         return response()->json([

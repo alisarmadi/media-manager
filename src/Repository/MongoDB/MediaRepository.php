@@ -12,4 +12,27 @@ class MediaRepository extends BaseRepository implements MediaRepositoryInterface
         parent::__construct(Media::class);
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function findByPath($path)
+    {
+        return $this->model
+            ->where('path', $path)
+            ->first();
+    }
+
+    /**
+     * @param $id
+     * @param $fileFormat
+     * @return mixed
+     */
+    public function deleteFileFormat($id, $fileFormat)
+    {
+        return $this->model
+            ->where('_id', $id)
+            ->pull('formats', $fileFormat);
+    }
+
 }

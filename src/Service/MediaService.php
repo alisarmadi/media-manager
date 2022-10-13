@@ -3,6 +3,7 @@ namespace Blytd\MediaManager\Service;
 
 use Blytd\MediaManager\Repository\Contract\MediaRepositoryInterface;
 use Carbon\Carbon;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Ramsey\Uuid\Uuid;
 
@@ -18,9 +19,8 @@ class MediaService {
 
     public function upload($data)
     {
-        $now = Carbon::now();
-        $folderName = $now->year . "-" . $now->month;
-        $mediaName = (string)Uuid::uuid4();
+        $folderName = $data['model'] ?? 'Global_Model';
+        $mediaName = ($data['model'] ? $data['model'] . '_' : '') . (string)Uuid::uuid4();
         $mediaExtension = $data['media']->getClientOriginalExtension();
 
         $baseFilePath = $folderName . '/' . $mediaName . '.' . $mediaExtension;
@@ -41,7 +41,8 @@ class MediaService {
             'origin_name' => $data['media']->getClientOriginalName(),
             'mime' => $data['media']->getMimeType(),
             'bucket' => $this->bucket,
-            'types' => ['original'],
+            'type' => [$data['media']],
+            'formats' => ['original'],
             'path' => $baseFilePath,
             'model' => $data['model'] ?? null,
             'model_id' => $data['model_id'] ?? null,
@@ -56,15 +57,33 @@ class MediaService {
     {
         if (!empty($data['media_id'])) {
             $file = $this->mediaRepository->findById($data['media_id']);
-            foreach($file->types as $type) {
-                if (Storage::disk('minio')->exists($type . '/' . $file['path'])) {
-                    Storage::disk('minio')->delete($type . '/' . $file['path']);
+            foreach($file->formats as $format) {
+                if (Storage::disk('minio')->exists($format . '/' . $file['path'])) {
+                    Storage::disk('minio')->delete($format . '/' . $file['path']);
+                } else {
+                    abort(Response::HTTP_NOT_FOUND,  'File not found.');
                 }
                 $this->mediaRepository->delete($data['media_id']);
             }
         } else {
             if (Storage::disk('minio')->exists($data['path'])) {
                 Storage::disk('minio')->delete( $data['path']);
+
+                $firstSlashPos = strpos($data['path'], '/');
+                $format = substr($data['path'], 0, $firstSlashPos);
+                $path = substr($data['path'], $firstSlashPos + 1);
+
+                $file = $this->mediaRepository->findByPath($path);
+                if ($file) {
+                    if ( in_array($format, $file->formats) && count($file->formats) == 1) {
+                        $this->mediaRepository->delete($file->id);
+                    } else if (in_array($format, $file->formats) && count($file->formats) > 1){
+                        $this->mediaRepository->deleteFileFormat($file->id, $format);
+                    }
+                }
+
+            } else {
+                abort(Response::HTTP_NOT_FOUND,  'File not found.');
             }
         }
         return true;
