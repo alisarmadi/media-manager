@@ -20,11 +20,9 @@ class MediaService {
     public function upload($data)
     {
         $folderName = $data['model'] ?? 'Global_Model';
-        $mediaName = ($data['model'] ? $data['model'] . '_' : '') . (string)Uuid::uuid4();
+        $mediaName = (isset($data['model_id']) ? $data['model_id'] . '_' : '') . (string)Uuid::uuid4();
         $mediaExtension = $data['media']->getClientOriginalExtension();
-
         $baseFilePath = $folderName . '/' . $mediaName . '.' . $mediaExtension;
-
         $originalFilePath = Storage::disk('minio')->putFileAs(
             'original/' . $folderName,
             $data['media'],
@@ -41,11 +39,12 @@ class MediaService {
             'origin_name' => $data['media']->getClientOriginalName(),
             'mime' => $data['media']->getMimeType(),
             'bucket' => $this->bucket,
-            'type' => [$data['media']],
+            'type' => $data['type'],
             'formats' => ['original'],
             'path' => $baseFilePath,
             'model' => $data['model'] ?? null,
             'model_id' => $data['model_id'] ?? null,
+            'extra_data' => $data['extra_data'] ?? null,
             'access_type' => 'public',
         ];
         $file = $this->mediaRepository->create($fileAttributes);

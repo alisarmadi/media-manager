@@ -19,7 +19,7 @@ class MediaController
         MediaService $mediaService
     )
     {
-        $data = $request->all();
+        $data = $request->validated();
         $data['type'] = $data['type'] ?? 'IMAGE';
         list($linkData, $file) = $mediaService->upload($data);
 

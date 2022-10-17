@@ -8,7 +8,6 @@ class MediaDeleteRequest extends FormRequest
 {
     public function rules(): array
     {
-
         return [
             'media_id' => 'required_without:path|exists:media,_id,deleted_at,NULL',
             'path' => 'required_without:file_id|string'

@@ -71,7 +71,7 @@ For use the library you have two endpoints for upload and delete, you can access
     DELETE {{base_path}}{/api}/media/delete/{media_id}
     PAYLOAD
         {
-            "path": "original/2022-9/37da58f9-2236-440b-8c3f-7f96fad39477.jpeg"
+            "path": "original/Team/630ee0ffb111e74b631f62b2_399a44ea-4642-4cda-94f4-3046904d311e.jpeg"
         }
     You must set one of the 'media_id' or 'path' param in this endpoint to delete the desired media.    
 
