@@ -7,14 +7,14 @@ simple APIs to work with.
 For install this library do these steps:
 - Add this line to require section of the composer.json
 ```
-"blytd/media-manager": "^1.0.0"
+"blytd/media-manager": "^1.0.2"
 ```
 - And also add this section in the composer.json file:
 ```
     "repositories": [
-        {
+       {
             "type": "vcs",
-            "url": "https://github.com/alisarmadi/media-manager"
+            "url":  "git@gitlab.blytd.com:backend/media-manager.git"
         }
     ],
 ```
@@ -24,12 +24,12 @@ For install this library do these steps:
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/alisarmadi/media-manager"
+            "url":  "git@gitlab.blytd.com:backend/media-manager.git"
         }
     ],
     "require": {
         ...
-        "blytd/media-manager": "^1.0.0"
+        "blytd/media-manager": "^1.0.2"
     },
     ...
 ```
